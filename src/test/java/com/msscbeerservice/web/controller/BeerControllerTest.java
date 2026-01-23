@@ -1,11 +1,14 @@
 package com.msscbeerservice.web.controller;
 
+import com.msscbeerservice.bootstrap.BeerLoader;
+import com.msscbeerservice.service.BeerService;
 import com.msscbeerservice.web.model.BeerDto;
 import com.msscbeerservice.web.model.BeerStyleEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import tools.jackson.databind.ObjectMapper;
@@ -24,6 +27,9 @@ class BeerControllerTest extends MockMvcRequestBuilders{
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @MockitoBean
+    BeerService beerService;
 
     @Test
     void getBeerById() throws Exception {
@@ -58,7 +64,7 @@ class BeerControllerTest extends MockMvcRequestBuilders{
                 .beerName("My beer")
                 .beerStyle(BeerStyleEnum.ALE)
                 .price(new BigDecimal("2.99"))
-                .upc(123123123123L)
+                .upc(BeerLoader.BEER_1_UPC)
                 .build();
     }
 }
